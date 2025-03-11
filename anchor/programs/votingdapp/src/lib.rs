@@ -37,7 +37,7 @@ pub mod votingdapp {
 }
 
 #[derive(Accounts)]
-#[instruction(poll_id : u64, candidate_name : String)]  
+#[instruction(candidate_name : String, poll_id : u64)]  
 pub struct InitializeCandidate<'info>{
 
   #[account(mut)]
