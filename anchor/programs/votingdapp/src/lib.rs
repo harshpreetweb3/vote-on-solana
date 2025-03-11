@@ -34,6 +34,33 @@ pub mod votingdapp {
       Ok(())
     }
 
+    pub fn vote(ctx : Context<Vote>, candidate_name : String, _poll_id : u64) -> Result<()>{ //poll_id helps us in getting the candidate account address and poll account address
+      let candidate = &mut ctx.accounts.candidate;
+      candidate.candidate_votes += 1;
+      msg!("Voted for candidate: {}", candidate_name);
+      msg!("Candidate votes: {}", candidate.candidate_votes);
+      Ok(())
+    }
+
+}
+
+#[derive(Accounts)]
+#[instruction(candidate_name : String, poll_id : u64)]
+pub struct Vote<'info>{
+  // #[account(mut)]
+  pub signer : Signer<'info>,
+
+  #[account(
+    seeds = [poll_id.to_le_bytes().as_ref()],
+    bump
+  )]
+  pub poll : Account<'info, Poll>,
+
+  #[account(
+    seeds = [poll_id.to_le_bytes().as_ref(), candidate_name.as_bytes()],
+    bump
+  )]
+  pub candidate : Account<'info, Candidate>
 }
 
 #[derive(Accounts)]
