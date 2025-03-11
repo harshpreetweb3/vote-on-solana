@@ -156,6 +156,7 @@
         },
         {
           "name": "candidate",
+          "writable": true,
           "pda": {
             "seeds": [
               {

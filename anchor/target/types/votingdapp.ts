@@ -162,6 +162,7 @@ export type Votingdapp = {
         },
         {
           "name": "candidate",
+          "writable": true,
           "pda": {
             "seeds": [
               {
